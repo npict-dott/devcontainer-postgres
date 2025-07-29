@@ -24,6 +24,7 @@ jobs:
       - name: Pre-build & push Dev Container image
         uses: devcontainers/ci@v0.3       # GitHub Action for devcontainer prebuilds :contentReference[oaicite:7]{index=7}
         with:
-          imageName: ghcr.io/${{ github.repository_owner }}/devcontainer-postgres-base:latest  
-          cacheFrom: ghcr.io/${{ github.repository_owner }}/devcontainer-postgres-base:latest  
+          imageName: ghcr.io/${{ github.repository_owner }}/devcontainer-postgres-base
+          imageTag: latest
+          cacheFrom: ghcr.io/${{ github.repository_owner }}/devcontainer-postgres-base
           push: always                    # always push on each run :contentReference[oaicite:8]{index=8}
