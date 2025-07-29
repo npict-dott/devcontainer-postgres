@@ -1,5 +1,5 @@
 # Use the universal base so you get the vscode user, extensions, etc.
-FROM mcr.microsoft.com/devcontainers/universal:2
+FROM mcr.microsoft.com/devcontainers/javascript-node:latest
 
 ARG USERNAME=vscode
 ARG USER_UID=1000
