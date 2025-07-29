@@ -1,16 +1,6 @@
 # Use the universal base so you get the vscode user, extensions, etc.
 FROM mcr.microsoft.com/vscode/devcontainers/javascript-node:latest
 
-# ARG USERNAME=vscode
-# ARG USER_UID=1000
-# ARG USER_GID=$USER_UID
-
-# # Create the vscode user and give sudo rights
-# RUN useradd --uid $USER_UID --gid $USER_GID -m $USERNAME \
-#  && apt-get update \
-#  && apt-get install -y sudo \
-#  && echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/$USERNAME
-
 # 1. Install Postgres server + client
 RUN apt-get update \
  && DEBIAN_FRONTEND=noninteractive apt-get install -y postgresql postgresql-client \
@@ -23,8 +13,10 @@ COPY entrypoint.sh     /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/setup-postgres.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
+USER root
 # 3. Run the script at build time to patch pg_hba.conf
 RUN bash /usr/local/bin/setup-postgres.sh || true
+USER node
 
 # 4. Use an entrypoint to start Postgres on container start-up
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]  # starts Postgres then drops to shell
