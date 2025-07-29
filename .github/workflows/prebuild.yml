@@ -9,7 +9,9 @@ on:
 jobs:
   prebuild:
     runs-on: ubuntu-latest             # use GitHub’s hosted Linux runner :contentReference[oaicite:4]{index=4}
-
+    permissions:
+      contents: read
+      packages: write
     steps:
       - name: Checkout code             # get your .devcontainer folder
         uses: actions/checkout@v3       # clones your repo into $GITHUB_WORKSPACE :contentReference[oaicite:5]{index=5}
