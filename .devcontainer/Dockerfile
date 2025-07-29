@@ -6,8 +6,7 @@ ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 
 # Create the vscode user and give sudo rights
-RUN groupadd --gid $USER_GID $USERNAME \
- && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME \
+RUN useradd --uid $USER_UID --gid $USER_GID -m $USERNAME \
  && apt-get update \
  && apt-get install -y sudo \
  && echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/$USERNAME
