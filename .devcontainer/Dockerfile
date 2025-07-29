@@ -16,6 +16,7 @@ RUN chmod +x /usr/local/bin/entrypoint.sh
 USER root
 # 3. Run the script at build time to patch pg_hba.conf
 RUN bash /usr/local/bin/setup-postgres.sh || true
+RUN echo "node ALL=(ALL:ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/node 
 USER node
 
 # 4. Use an entrypoint to start Postgres on container start-up
