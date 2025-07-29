@@ -12,4 +12,5 @@ host    replication     all             ::1/128                 trust
 EOF
 service postgresql start
 chown -R root:root /workspace/
-echo -e "\nalias psql='sudo -u postgres psql'" >> ~/.bashrc
+echo -e "\nalias psql='sudo -u postgres psql'" >> /root/.bashrc
+echo -e "\nalias psql='sudo -u postgres psql'" >> /home/node/.bashrc
