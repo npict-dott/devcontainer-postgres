@@ -1,6 +1,17 @@
 # Use the universal base so you get the vscode user, extensions, etc.
 FROM mcr.microsoft.com/devcontainers/universal:2
 
+ARG USERNAME=vscode
+ARG USER_UID=1000
+ARG USER_GID=$USER_UID
+
+# Create the vscode user and give sudo rights
+RUN groupadd --gid $USER_GID $USERNAME \
+ && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME \
+ && apt-get update \
+ && apt-get install -y sudo \
+ && echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/$USERNAME
+
 # 1. Install Postgres server + client
 RUN apt-get update \
  && DEBIAN_FRONTEND=noninteractive apt-get install -y postgresql postgresql-client \
