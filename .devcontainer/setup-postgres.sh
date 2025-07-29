@@ -10,3 +10,5 @@ local   replication     all                                     trust
 host    replication     all             127.0.0.1/32            trust
 host    replication     all             ::1/128                 trust
 EOF
+service postgresql start
+alias psql='sudo -u postgres psql'
