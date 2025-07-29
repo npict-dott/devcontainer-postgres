@@ -1,0 +1,14 @@
+{
+  "name": "Postgres Dev Container Base",
+  "build": { "dockerfile": "Dockerfile" },
+  "remoteUser": "vscode",             // or root if your script needs elevated perms :contentReference[oaicite:9]{index=9}
+  "postCreateCommand": "bash /usr/local/bin/setup-postgres.sh",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-azuretools.vscode-docker"
+      ]
+    }
+  },
+  "forwardPorts": [5432]
+}

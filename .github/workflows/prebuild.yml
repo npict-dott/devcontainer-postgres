@@ -1,0 +1,29 @@
+name: Prebuild Dev Container Image
+
+# 1️⃣ Trigger on pushes to main
+on:
+  push:
+    branches:
+      - main                             # only rebuild on main :contentReference[oaicite:3]{index=3}
+
+jobs:
+  prebuild:
+    runs-on: ubuntu-latest             # use GitHub’s hosted Linux runner :contentReference[oaicite:4]{index=4}
+
+    steps:
+      - name: Checkout code             # get your .devcontainer folder
+        uses: actions/checkout@v3       # clones your repo into $GITHUB_WORKSPACE :contentReference[oaicite:5]{index=5}
+
+      - name: Log in to GHCR            # authenticate to GitHub Container Registry
+        uses: docker/login-action@v2    # handles docker login under the hood :contentReference[oaicite:6]{index=6}
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Pre-build & push Dev Container image
+        uses: devcontainers/ci@v0.3       # GitHub Action for devcontainer prebuilds :contentReference[oaicite:7]{index=7}
+        with:
+          imageName: ghcr.io/${{ github.repository_owner }}/devcontainer-postgres-base:latest  
+          cacheFrom: ghcr.io/${{ github.repository_owner }}/devcontainer-postgres-base:latest  
+          push: always                    # always push on each run :contentReference[oaicite:8]{index=8}
